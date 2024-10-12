@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import ProtectedRoute from '../components/ProtectedRoute';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
-import Login from '../pages/Login/Login';
+import UserLogin from '../pages/Login/UserLogin';
 
 export const PathName = {
   LOGIN: '/login',
@@ -10,7 +10,7 @@ export const PathName = {
 
 export const unAuthOnlyPaths = [PathName.LOGIN];
 
-const routes = [{ path: PathName.LOGIN, element: <Login />, key: 'login', isProtected: false, roles: null }];
+const routes = [{ path: PathName.LOGIN, element: <UserLogin />, key: 'login', isProtected: false, roles: null }];
 
 const AppRouter = () => {
   return (
