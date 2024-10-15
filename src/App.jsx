@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppRouter from './router/AppRouter';
 import CssBaseline from '@mui/material/CssBaseline';
-import './App.css';
+import { AuthProvider } from './context/AuthContext';
 
 const theme = createTheme({
   typography: {
@@ -13,7 +13,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppRouter />
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

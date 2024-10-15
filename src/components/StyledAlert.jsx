@@ -9,7 +9,7 @@ const StyledAlertContainer = styled('div')({
   maxWidth: '75%'
 });
 
-const FormeError = ({ children, duration, setIsOpen, isOpen }) => {
+const StyledAlert = ({ children, duration, setIsOpen, isOpen, severity = 'error', variant = 'filled' }) => {
   const handleClose = () => setIsOpen(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const FormeError = ({ children, duration, setIsOpen, isOpen }) => {
   return (
     isOpen && (
       <StyledAlertContainer>
-        <Alert variant="filled" severity="error" onClose={handleClose}>
+        <Alert variant={variant} severity={severity} onClose={handleClose}>
           {children}
         </Alert>
       </StyledAlertContainer>
@@ -31,4 +31,4 @@ const FormeError = ({ children, duration, setIsOpen, isOpen }) => {
   );
 };
 
-export default FormeError;
+export default StyledAlert;
