@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
 const init = {
   user: JSON.parse(localStorage.getItem('user')),

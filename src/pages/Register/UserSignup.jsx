@@ -1,15 +1,14 @@
 import Grid from '@mui/material/Grid2';
 import { StyledHeader, StyledP } from './UserSignup.styles';
-import { Box } from '@mui/material';
 import TextInput from '../../components/TextInput';
 import PhoneInput from '../../components/PhoneInput';
 import { useRef, useState } from 'react';
 import PasswordInput from '../../components/PasswordInput';
 import LargeButton from '../../components/LargeButton';
-import StyledAlert from '../../components/StyledAlert';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import { PathName } from '../../router/AppRouter';
+import StyledNotification from '../../components/StyledAlert';
 
 const UserSignup = () => {
   const [phone, setPhone] = useState('');
@@ -54,7 +53,7 @@ const UserSignup = () => {
       return;
     }
 
-    const [_res, err] = await UserService.login({
+    const [_res, err] = await AuthService.login({
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       password: passwordRef.current.value,
@@ -97,7 +96,7 @@ const UserSignup = () => {
                 Next
               </LargeButton>
             </Grid>
-            <Grid size={{ xs: 12 }} sx={{ textAlign: 'center' }}>
+            <Grid size={{ xs: 12 }} sx={{ textAlign: 'center', marginTop: '.75rem' }}>
               <StyledP onClick={() => navigate('/login')}>
                 Already have an account? <b>Log in</b>
               </StyledP>
@@ -106,9 +105,9 @@ const UserSignup = () => {
         </Grid>
       </Grid>
 
-      <StyledAlert duration={2500} isOpen={error} setIsOpen={setError}>
+      <StyledNotification duration={2500} isOpen={error} setIsOpen={setError}>
         {error}
-      </StyledAlert>
+      </StyledNotification>
     </>
   );
 };

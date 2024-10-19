@@ -28,16 +28,16 @@ apiClient.interceptors.response.use(
   (error) => {
     let customErrorMessage = 'An unexpected error occurred';
 
-    if (error?.response?.status === 403 || error?.response?.status === 401) {
-      // logout
-    } else if (error?.response?.status >= 500) {
-      customErrorMessage = 'Something went wrong, please try again later';
-    }
-
     const customError = {
       message: error.response?.data?.message ?? customErrorMessage,
       status: error.response?.status
     };
+
+    if (error?.response?.status === 403 || error?.response?.status === 401) {
+      // logout
+    } else if (error?.response?.status >= 500) {
+      customError.message = customError;
+    }
 
     throw customError;
   }
