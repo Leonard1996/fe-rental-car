@@ -84,8 +84,6 @@ export default function ConfirmRegister() {
       setError(err.message);
       return;
     }
-
-    Object.keys(res).forEach((key) => localStorage.setItem(key, JSON.stringify(res[key])));
     dispatch({ type: ActionType.LOGIN, payload: res });
     navigate(PathName.HOME);
   };
@@ -94,7 +92,7 @@ export default function ConfirmRegister() {
     <>
       <Grid container textAlign={'left'} sx={{ padding: '2.187rem' }}>
         <Grid size={{ xs: 12 }}>
-          <StyledHeader>{type === 'resetPassword' ? 'Confirm Account' : 'Forgot Password'}</StyledHeader>
+          <StyledHeader>{type === 'resetPassword' ? 'Forgot Password' : 'Confirm Account'}</StyledHeader>
           <StyledP>A 6 digit code has been sent to you to {privatePhone}</StyledP>
           {/* 
           Password input only

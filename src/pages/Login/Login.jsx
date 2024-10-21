@@ -35,7 +35,6 @@ export default function Login() {
       setError(err.message);
       return;
     }
-    Object.keys(res).forEach((key) => localStorage.setItem(key, JSON.stringify(res[key])));
     dispatch({ type: ActionType.LOGIN, payload: res });
     navigate(PathName.HOME);
   };

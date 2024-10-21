@@ -15,9 +15,15 @@ export const ActionType = {
 
 function reducer(state, action) {
   if (action.type === ActionType.LOGIN) {
+    Object.keys(action.payload).forEach((key) => localStorage.setItem(key, JSON.stringify(action.payload[key])));
+
     return { ...state, ...action.payload };
   }
   if (action.type === ActionType.LOGOUT) {
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+
     return { ...state, user: null, accessToken: null, refreshToken: null };
   }
 

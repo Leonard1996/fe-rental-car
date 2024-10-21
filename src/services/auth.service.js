@@ -1,7 +1,7 @@
 import apiClient from '../client/http-client';
 
 export class AuthService {
-  static login = async (data) => {
+  static signup = async (data) => {
     try {
       const res = await apiClient.post('/auth/register', data);
       return [res, null];

@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { unAuthOnlyPaths } from '../router/AppRouter';
 import { useAuth } from '../context/AuthContext';
+import NavBar from './NavBar';
 
 const ProtectedRoute = ({ roles, isProtected, path }) => {
   const {
@@ -19,7 +20,12 @@ const ProtectedRoute = ({ roles, isProtected, path }) => {
     return <Navigate to="/" />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      {!unAuthOnlyPaths.includes(path) && <NavBar />}
+      <Outlet />
+    </>
+  );
 };
 
 export default ProtectedRoute;

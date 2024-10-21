@@ -53,7 +53,7 @@ const UserSignup = () => {
       return;
     }
 
-    const [_res, err] = await AuthService.login({
+    const [_res, err] = await AuthService.register({
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       password: passwordRef.current.value,
@@ -70,7 +70,7 @@ const UserSignup = () => {
 
   return (
     <>
-      <Grid container textAlign={'left'} sx={{ padding: '2.062rem', paddingTop: 0 }}>
+      <Grid container textAlign={'left'} sx={{ padding: '2.062rem' }}>
         <Grid size={{ xs: 12 }} sx={{ marginBottom: '1rem' }}>
           <StyledHeader>Personal Information</StyledHeader>
         </Grid>
