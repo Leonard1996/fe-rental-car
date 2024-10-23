@@ -51,7 +51,7 @@ export default function NavBar() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Menu anchor="bottom" isOpen={isMenuExtended} setIsOpen={() => setIsMenuExtended(false)} />
+      <Menu anchor="left" isOpen={isMenuExtended} setIsOpen={() => setIsMenuExtended(false)} />
     </>
   );
 }

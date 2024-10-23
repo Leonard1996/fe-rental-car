@@ -2,7 +2,7 @@ import Filter from '../../components/Filter';
 
 export default function FilterContainer({ filters }) {
   return (
-    <div style={{ display: 'flex', overflowX: 'scroll', scrollbarWidth: 'none' }}>
+    <div style={{ display: 'flex', overflowX: 'scroll', scrollbarWidth: 'none', paddingLeft: '1.25rem' }}>
       {filters.map(({ label, callback, showIcon = true, customStyles }) => {
         return (
           <div key={label} style={{ marginRight: '.5rem' }}>

@@ -8,5 +8,6 @@ export const colors = {
   lightGrey: '#D9D8D6',
   darkGrey: '#9E9E9E',
   darkRed: '#FF6565',
-  lightRed: '#FFDCDC'
+  lightRed: '#FFDCDC',
+  notificationSecondaryText: '#818683'
 };

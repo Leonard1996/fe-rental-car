@@ -7,7 +7,7 @@ export default function Filter({ label, callback, showIcon = true, customStyles 
       style={{
         borderRadius: '0.75rem',
         border: `1px solid ${colors.lightGrey}`,
-        padding: '0.468rem 1rem',
+        padding: '.465rem 1rem',
         color: colors.mainBlack,
         fontWeight: '600',
         fontSize: '0.75rem',
@@ -15,7 +15,6 @@ export default function Filter({ label, callback, showIcon = true, customStyles 
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '2.562rem',
         whiteSpace: 'nowrap',
         ...(customStyles?.wrapper ?? {})
       }}
