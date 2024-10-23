@@ -24,8 +24,10 @@ export default function Filter({ label, callback, showIcon = true, customStyles 
       >
         <div style={{ display: 'flex', ...(customStyles?.label ?? {}) }}>{label}</div>
         {showIcon && (
-          <div style={{ display: 'flex', justifyContent: 'center', ...(customStyles?.icon ?? {}) }}>
-            <KeyboardArrowDownRoundedIcon sx={{ color: colors.mainBlack }} />
+          <div
+            style={{ display: 'flex', justifyContent: 'center', marginLeft: '.25rem', ...(customStyles?.icon ?? {}) }}
+          >
+            <KeyboardArrowDownRoundedIcon sx={{ color: colors.mainBlack, fontSize: '1rem' }} />
           </div>
         )}
       </div>
