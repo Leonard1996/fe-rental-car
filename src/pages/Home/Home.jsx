@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useEffect } from 'react';
+import { reservationStatus } from '../../common/constants';
 
 export default function Home() {
   const {
@@ -15,7 +16,7 @@ export default function Home() {
     }
 
     if (user?.role === 'owner') {
-      return navigate('/owner-panel');
+      return navigate(`/owner-panel?status=${reservationStatus.APPROVED}`);
     }
 
     if (user.role === 'admin') {

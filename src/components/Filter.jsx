@@ -1,9 +1,14 @@
 import { colors } from '../themes/base-theme';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-export default function Filter({ label, callback, showIcon = true, customStyles }) {
+export default function Filter({ label, callback, showIcon = true, customStyles, id }) {
+  const handleClick = () => {
+    callback(id);
+  };
+
   return (
     <div
+      onClick={handleClick}
       style={{
         borderRadius: '0.75rem',
         border: `1px solid ${colors.lightGrey}`,
@@ -16,6 +21,7 @@ export default function Filter({ label, callback, showIcon = true, customStyles 
         justifyContent: 'center',
         alignItems: 'center',
         whiteSpace: 'nowrap',
+        cursor: 'pointer',
         ...(customStyles?.wrapper ?? {})
       }}
     >

@@ -4,11 +4,12 @@ const apiClient = axios.create({});
 
 apiClient.interceptors.request.use(
   async function (config) {
-    const authData = JSON.parse(localStorage.getItem('authData'));
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
-    if (authData) {
-      config.headers['Authorization'] = `Bearer ${authData.accessToken}`;
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
       config.headers['Access-Control-Allow-Credentials'] = true;
+      config.headers['refresh-token'] = JSON.parse(localStorage.getItem('refreshToken'));
     }
     config.headers['Content-Type'] = 'application/json';
     config.credentials = 'same-origin';

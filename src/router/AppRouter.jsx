@@ -7,7 +7,6 @@ import Login from '../pages/Login/Login';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Home from '../pages/Home/Home';
 import OwnerPanel from '../pages/Home/OwnerPanel';
-import NavBar from '../components/NavBar';
 import React from 'react';
 
 export const PathName = {

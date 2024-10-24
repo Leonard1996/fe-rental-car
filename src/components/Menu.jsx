@@ -60,8 +60,12 @@ export default function Menu({ isOpen, setIsOpen, anchor }) {
       onClose={setIsOpen}
       sx={{
         '& .MuiPaper-root': {
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24
+          position: 'absolute',
+          top: '8.5625rem',
+          left: 0,
+          right: 0,
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0
         }
       }}
     >
