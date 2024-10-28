@@ -49,7 +49,8 @@ export default function CarReservationCard({
   status,
   location,
   year,
-  engine
+  engine,
+  licensePlate
 }) {
   const days = getDifferenceInDays(from, to);
 
@@ -73,14 +74,17 @@ export default function CarReservationCard({
           <Grid size={{ xs: 12 }}>
             <img src={carImagePlaceholder} style={{ width: '100%' }} loading="lazy" alt={make + ' ' + model} />
           </Grid>
-          <Grid size={{ xs: 9 }}>
+          <Grid size={{ xs: 9 }} sx={{ marginBottom: '1rem' }}>
             <Grid container>
-              <Grid size={{ xs: 12 }}>
+              <Grid size={{ xs: 12 }} sx={{ marginBottom: '.625rem' }}>
                 <StyledTitle>{type}</StyledTitle>
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <StyledSubTitle>{licensePlate}</StyledSubTitle>
               </Grid>
             </Grid>
           </Grid>
-          <Grid size={{ xs: 3 }}>
+          <Grid size={{ xs: 3 }} sx={{ marginBottom: '1rem' }}>
             <Grid container>
               <Grid size={{ xs: 12 }} sx={{ marginBottom: '.625rem' }}>
                 <StyledTitle sx={{ fontWeight: 600, textAlign: 'right' }}>€{days * price} total</StyledTitle>
@@ -104,7 +108,7 @@ export default function CarReservationCard({
             <StyledSubTitle>{notes}</StyledSubTitle>
           </Grid>
           <Grid size={{ xs: 12 }} sx={{ marginBottom: '1rem' }}>
-            <StyledTag sx={{ color: colors.darkGrey, backgroundColor: colors.lightGrey }}>{status}</StyledTag>
+            <StyledTag sx={{ color: colors.darkGrey, backgroundColor: colors.almostWhiteGrey }}>{status}</StyledTag>
           </Grid>
           {status === reservationStatus.PENDING && (
             <Grid size={{ xs: 12 }}>

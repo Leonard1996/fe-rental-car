@@ -9,10 +9,13 @@ import { reservationStatus } from '../../common/constants';
 import useCache from '../../hooks/useCacheService';
 import { OwnerSerivce } from '../../services/owner.service';
 import CarReservationCard from '../../components/CarReservationCard';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { PathName } from '../../router/AppRouter';
-import SortByDrawer from '../../components/SortByDrawer';
+import SortBy from '../../components/SortBy';
+import FilterDrawer from '../../components/FilterDrawer';
+import ShuttleFilter from '../../components/ShuttleFilter';
+import DateFilter from '../../components/DateFilter';
+import AllFilters from '../../components/AllFilters';
 
 const filters = [
   {
@@ -24,17 +27,50 @@ const filters = [
       container: {},
       label: {},
       icon: {}
-    }
+    },
+    checkIsDirty: () => false
   },
-  { id: 'allFilters', label: 'All Filters', showIcon: false },
-  { id: 'dates', label: 'Dates', showIcon: true },
-  { id: 'airport', label: 'Airport', showIcon: true },
-  { id: 'sortBy', label: 'Sort By', showIcon: true }
+  {
+    id: 'allFilters',
+    label: 'All Filters',
+    showIcon: false,
+    checkIsDirty: (f) => f['sortBy'] !== 'latest' || f['from'] || f['to'] || f['isShuttle'],
+    component: (props) => <AllFilters {...props} />
+  },
+  {
+    id: 'sortBy',
+    label: 'Sort By',
+    showIcon: true,
+    component: (props) => <SortBy {...props} />,
+    checkIsDirty: (f) => f['sortBy'] !== 'latest'
+  },
+  {
+    id: 'dates',
+    label: 'Dates',
+    showIcon: true,
+    component: (props) => <DateFilter {...props} />,
+    checkIsDirty: (f) => f['from'] || f['to']
+  },
+  {
+    id: 'isShuttle',
+    label: 'Airport',
+    showIcon: true,
+    component: (props) => <ShuttleFilter {...props} />,
+    checkIsDirty: (f) => f['isShuttle']
+  }
 ];
+
+export const initSelectedFilters = {
+  sortBy: 'latest',
+  isShuttle: false,
+  from: null,
+  to: null
+};
 
 export default function OwnerPanel() {
   const [reservations, setReservations] = useState([]);
   const [filterVisibility, setFiltersVisibility] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState(initSelectedFilters);
 
   const { loading, setLoading } = useLoading();
 
@@ -71,13 +107,19 @@ export default function OwnerPanel() {
   };
 
   const callReservationService = async (filters) => {
-    const cacheKey = { serviceKey: OwnerSerivce.getReservationsByCompany.name, payload: filters };
+    const cacheKey = {
+      serviceKey: OwnerSerivce.getReservationsByCompany.name,
+      payload: { ...filters, ...selectedFilters }
+    };
     if (checkCache(cacheKey)) {
       setReservations(getContent(cacheKey));
       return;
     }
 
-    const [res, err] = await OwnerSerivce.getReservationsByCompany(filters, user.companies[0].id);
+    const [res, err] = await OwnerSerivce.getReservationsByCompany(
+      { ...filters, ...selectedFilters },
+      user.companies[0].id
+    );
     if (!err) {
       setReservations(res);
       cacheKey.result = res;
@@ -85,25 +127,42 @@ export default function OwnerPanel() {
       return;
     }
     alert(err.message);
+    setSelectedFilters(initSelectedFilters);
+  };
+
+  const handleFilterChange = (e, id) => {
+    setSelectedFilters((prev) => {
+      return {
+        ...prev,
+        [id]: e.target.value
+      };
+    });
+  };
+
+  const onFilterClick = (id) => {
+    if (id === 'bin') {
+      setFiltersVisibility(null);
+      setSelectedFilters(initSelectedFilters);
+      return;
+    }
+    setFiltersVisibility(id);
   };
 
   useEffect(() => {
-    if (![reservationStatus.APPROVED, reservationStatus.PENDING].includes(status)) {
-      navigate(`${PathName.OWNER_PANEL}?status=${reservationStatus.APPROVED}`);
-    }
     callReservationService(
       {
-        statuses: ['approved']
+        statuses: [status],
+        ...selectedFilters
       },
       user.companies[0].id
     );
-  }, []);
+  }, [JSON.stringify(selectedFilters)]);
 
   return (
     <>
       <Grid container>
         <Grid size={{ xs: 12 }} sx={{ padding: '.875rem 0rem 0rem' }}>
-          <FilterContainer filters={filters} callback={setFiltersVisibility} />
+          <FilterContainer filters={filters} callback={onFilterClick} selectedFilters={selectedFilters} />
         </Grid>
         <Grid size={{ xs: 12 }} sx={{ padding: '1.25rem' }}>
           <Grid container>
@@ -140,29 +199,44 @@ export default function OwnerPanel() {
             <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ padding: '1.25rem' }} key={reservation.id}>
               <CarReservationCard
                 pickUpLocation="Zyra Tirona"
-                make={reservation.car.make}
-                model={reservation.car.model}
-                type={reservation.car.type}
+                make={reservation.requestedCar.make}
+                model={reservation.requestedCar.model}
+                type={reservation.requestedCar.type}
                 from={+reservation.from}
                 to={+reservation.to}
                 price={100}
                 notes={reservation.notes}
                 status={reservation.status}
                 isShuttle={reservation.isShuttle}
-                location={reservation.car.location}
-                year={reservation.car.year}
-                engine={reservation.car.engine}
+                location={reservation.requestedCar.location}
+                year={reservation.requestedCar.year}
+                engine={reservation.requestedCar.engine}
+                licensePlate={reservation.requestedCar.licensePlate}
               />
             </Grid>
           ))}
         </Grid>
       </Grid>
-      <SortByDrawer
-        label="Sort By"
+      <FilterDrawer
+        label={filters.find((filter) => filter.id === filterVisibility)?.label}
         anchor="bottom"
-        isOpen={filterVisibility === 'sortBy'}
+        isOpen={filterVisibility}
         handleClose={() => setFiltersVisibility(null)}
-      />
+      >
+        {filters.map((filter) => {
+          if (filter.id === 'bin' || filter.id !== filterVisibility) return null;
+          return (
+            <React.Fragment key={filter.id}>
+              {filter.component({
+                id: filter.id,
+                isOpen: filterVisibility === filter.id,
+                handleFilterChange: handleFilterChange,
+                selectedFilters: selectedFilters
+              })}
+            </React.Fragment>
+          );
+        })}
+      </FilterDrawer>
     </>
   );
 }

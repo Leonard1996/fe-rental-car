@@ -1,7 +1,7 @@
 import { colors } from '../themes/base-theme';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-export default function Filter({ label, callback, showIcon = true, customStyles, id }) {
+export default function Filter({ label, callback, showIcon = true, customStyles, id, isDirty }) {
   const handleClick = () => {
     callback(id);
   };
@@ -22,6 +22,7 @@ export default function Filter({ label, callback, showIcon = true, customStyles,
         alignItems: 'center',
         whiteSpace: 'nowrap',
         cursor: 'pointer',
+        position: 'relative',
         ...(customStyles?.wrapper ?? {})
       }}
     >
@@ -37,6 +38,19 @@ export default function Filter({ label, callback, showIcon = true, customStyles,
           </div>
         )}
       </div>
+      {isDirty && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: -6,
+            height: '.75rem',
+            width: '.75rem',
+            borderRadius: '50%',
+            background: 'red'
+          }}
+        />
+      )}
     </div>
   );
 }
