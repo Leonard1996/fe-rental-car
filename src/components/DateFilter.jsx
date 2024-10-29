@@ -35,7 +35,7 @@ export default function DateFilter({ handleFilterChange, selectedFilters }) {
             <DatePicker
               format="DD/MM/YYYY"
               label="Start Date"
-              value={from ?? dayjs(new Date().setHours(0, 0, 0, 0))}
+              value={from ?? dayjs(new Date())}
               onAccept={() =>
                 handleFilterChange(
                   {
