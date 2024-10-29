@@ -35,7 +35,6 @@ const RadioButton = ({ onChange, ...props }) => {
 };
 
 export default function SortBy({ handleFilterChange, selectedFilters, id = 'sortBy' }) {
-  console.log(handleFilterChange, selectedFilters, id);
   return (
     <Grid container sx={{ padding: '1.625rem 1rem' }}>
       <Grid size={{ xs: 12 }} sx={{ marginBottom: '2rem' }}>
