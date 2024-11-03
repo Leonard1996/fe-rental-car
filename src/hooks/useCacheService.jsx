@@ -9,7 +9,7 @@ export default function useCache() {
 
   const registeredServicesRef = useRef({});
 
-  const registerService = ({ serviceKey, payload, result, expirationDate = new Date().getTime() + 20 * 1000 }) => {
+  const registerService = ({ serviceKey, payload, result, expirationDate = new Date().getTime() + 2 * 1000 }) => {
     payload = JSON.stringify(payload ?? '{}');
     registeredServicesRef.current[String(serviceKey) + String(payload)] = { expirationDate, result };
   };

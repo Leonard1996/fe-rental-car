@@ -9,4 +9,22 @@ export class OwnerSerivce {
       return [null, error];
     }
   };
+
+  static updateReservation = async (data, companyId, reservationId) => {
+    try {
+      const res = await apiClient.patch(`/companies/${companyId}/reservations/${reservationId}`, data);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
+
+  static getCarReservationOptions = async (companyId, reservationId) => {
+    try {
+      const res = await apiClient.get(`/companies/${companyId}/reservations/${reservationId}/options`);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
 }

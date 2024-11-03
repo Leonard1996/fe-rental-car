@@ -24,9 +24,12 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (res) => {
+    if (res.headers['new-access-token'])
+      localStorage.setItem('accessToken', JSON.stringify(res.headers['new-access-token'].toString()));
     return res.data;
   },
   (error) => {
+    console.log(error);
     let customErrorMessage = 'An unexpected error occurred';
 
     const customError = {

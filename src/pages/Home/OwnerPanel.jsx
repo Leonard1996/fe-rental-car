@@ -198,20 +198,21 @@ export default function OwnerPanel() {
           {reservations.map((reservation) => (
             <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ padding: '1.25rem' }} key={reservation.id}>
               <CarReservationCard
-                pickUpLocation="Zyra Tirona"
-                make={reservation.requestedCar.make}
-                model={reservation.requestedCar.model}
-                type={reservation.requestedCar.type}
-                from={+reservation.from}
-                to={+reservation.to}
-                price={100}
-                notes={reservation.notes}
-                status={reservation.status}
-                isShuttle={reservation.isShuttle}
-                location={reservation.requestedCar.location}
-                year={reservation.requestedCar.year}
-                engine={reservation.requestedCar.engine}
-                licensePlate={reservation.requestedCar.licensePlate}
+                id={reservation.requestedCarId}
+                make={reservation.carMake}
+                model={reservation.carModel}
+                type={reservation.carType}
+                from={+reservation.reservationFrom}
+                to={+reservation.reservationTo}
+                price={reservation.reservationPrice}
+                notes={reservation.reservationNotes}
+                status={reservation.reservationStatus}
+                isShuttle={reservation.reservationIsShuttle}
+                location={reservation.locationName}
+                year={reservation.carYear}
+                engine={reservation.carEngine}
+                licensePlate={reservation.carLicensePlate}
+                reservationId={reservation.reservationId}
               />
             </Grid>
           ))}

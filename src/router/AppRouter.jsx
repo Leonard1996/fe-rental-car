@@ -8,6 +8,13 @@ import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Home from '../pages/Home/Home';
 import OwnerPanel from '../pages/Home/OwnerPanel';
 import React from 'react';
+import CarOptions from '../pages/CarOptions/CarOptions';
+
+export const UserRoles = {
+  Owner: 'owner',
+  Client: 'client',
+  Admin: 'admin'
+};
 
 export const PathName = {
   LOGIN: '/login',
@@ -15,7 +22,8 @@ export const PathName = {
   CONFIRM_REGISTER: '/signup/confirm',
   FORGOT_PASSWORD: '/forgot-password',
   HOME: '/',
-  OWNER_PANEL: '/owner-panel'
+  OWNER_PANEL: '/owner-panel',
+  OWNER_PANEL_CAR_OPTIONS: '/owner-panel/reservations/:reservationId/car-options'
 };
 
 export const unAuthOnlyPaths = [PathName.SIGNUP, PathName.CONFIRM_REGISTER, PathName.LOGIN, PathName.FORGOT_PASSWORD];
@@ -49,7 +57,14 @@ const routes = [
     element: <OwnerPanel />,
     key: 'owner-panel',
     isProtected: true,
-    roles: null
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.OWNER_PANEL_CAR_OPTIONS,
+    element: <CarOptions />,
+    key: 'owner-panel-car-options',
+    isProtected: true,
+    roles: UserRoles.Owner
   }
 ];
 
