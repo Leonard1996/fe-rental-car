@@ -9,6 +9,8 @@ import Home from '../pages/Home/Home';
 import OwnerPanel from '../pages/Home/OwnerPanel';
 import React from 'react';
 import CarOptions from '../pages/CarOptions/CarOptions';
+import ReservationReview from '../pages/ReservationReview/ReservationReview';
+import ReservationAccepted from '../pages/ReservationReview/ReservationAccepted';
 
 export const UserRoles = {
   Owner: 'owner',
@@ -23,7 +25,9 @@ export const PathName = {
   FORGOT_PASSWORD: '/forgot-password',
   HOME: '/',
   OWNER_PANEL: '/owner-panel',
-  OWNER_PANEL_CAR_OPTIONS: '/owner-panel/reservations/:reservationId/car-options'
+  OWNER_PANEL_CAR_OPTIONS: '/owner-panel/reservations/:reservationId/car-options',
+  OWNER_PANEL_RESERVATION_REVIEW: '/owner-panel/reservations/:reservationId/review',
+  OWNER_PANEL_RESERVATION_ACCEPTED: '/owner-panel/reservations/accepted'
 };
 
 export const unAuthOnlyPaths = [PathName.SIGNUP, PathName.CONFIRM_REGISTER, PathName.LOGIN, PathName.FORGOT_PASSWORD];
@@ -63,6 +67,20 @@ const routes = [
     path: PathName.OWNER_PANEL_CAR_OPTIONS,
     element: <CarOptions />,
     key: 'owner-panel-car-options',
+    isProtected: true,
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.OWNER_PANEL_RESERVATION_REVIEW,
+    element: <ReservationReview />,
+    key: 'owner-panel-reservation-review',
+    isProtected: true,
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.OWNER_PANEL_RESERVATION_ACCEPTED,
+    element: <ReservationAccepted />,
+    key: 'owner-panel-reservation-accepted',
     isProtected: true,
     roles: UserRoles.Owner
   }

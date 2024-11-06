@@ -34,7 +34,7 @@ export default function CarOptionCard({
       <CardContent sx={{ padding: '1rem' }}>
         <Grid container>
           <Grid size={{ xs: 11 }} sx={{ marginBottom: '.625rem' }}>
-            {location}
+            {location?.name}
           </Grid>
           <Grid size={{ xs: 1 }} sx={{ textAlign: 'right', marginBottom: '.625rem' }}>
             {!isBooked && <CheckBox isChecked={isSelected} />}

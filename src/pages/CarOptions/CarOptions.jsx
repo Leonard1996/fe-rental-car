@@ -4,11 +4,12 @@ import { colors } from '../../themes/base-theme';
 import { useEffect, useState } from 'react';
 import { OwnerSerivce } from '../../services/owner.service';
 import { useAuth } from '../../context/AuthContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { styled, Typography } from '@mui/material';
 import CarOptionCard from '../../components/CarOptionCard';
 import { getDifferenceInDays } from '../../common/helpers';
 import LargeButton from '../../components/LargeButton';
+import { PathName } from '../../router/AppRouter';
 
 const ReservationPrice = styled(Typography)({
   fontWeight: 600,
@@ -33,6 +34,8 @@ export default function CarOptions() {
   const [options, setOptions] = useState([]);
   const [original, setOriginal] = useState({});
   const [isSelected, setIsSelected] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const callReservationOptionsService = async () => {
@@ -59,6 +62,13 @@ export default function CarOptions() {
 
   const handleSelect = (id) => {
     setIsSelected(id);
+  };
+
+  const handleContinue = () => {
+    const reservations = JSON.parse(localStorage.getItem('reservations')) ?? {};
+    reservations[reservationId] = options.find((option) => option.id === isSelected);
+    localStorage.setItem('reservations', JSON.stringify(reservations));
+    navigate(`/owner-panel/reservations/${reservationId}/review`);
   };
 
   return (
@@ -111,7 +121,9 @@ export default function CarOptions() {
         </Grid>
       </Grid>
       <div style={{ position: 'sticky', bottom: '2rem', padding: '1.25rem' }}>
-        <LargeButton fullWidth>Select and continue</LargeButton>
+        <LargeButton fullWidth onClick={handleContinue} disabled={!isSelected}>
+          Select and continue
+        </LargeButton>
       </div>
     </>
   );
