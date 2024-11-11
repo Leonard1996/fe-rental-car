@@ -27,4 +27,22 @@ export class OwnerSerivce {
       return [null, error];
     }
   };
+
+  static getReservationsById = async (qs, companyId) => {
+    try {
+      const res = await apiClient.get(`/companies/${companyId}/reservations/search?qs=` + qs);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
+
+  static getReservationsDetailsById = async (reservationId, companyId) => {
+    try {
+      const res = await apiClient.get(`/companies/${companyId}/reservations/${reservationId}`);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
 }

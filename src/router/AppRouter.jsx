@@ -11,6 +11,7 @@ import React from 'react';
 import CarOptions from '../pages/CarOptions/CarOptions';
 import ReservationReview from '../pages/ReservationReview/ReservationReview';
 import ReservationAccepted from '../pages/ReservationReview/ReservationAccepted';
+import ReservationView from '../pages/ReservationReview/ReservationView';
 
 export const UserRoles = {
   Owner: 'owner',
@@ -27,7 +28,8 @@ export const PathName = {
   OWNER_PANEL: '/owner-panel',
   OWNER_PANEL_CAR_OPTIONS: '/owner-panel/reservations/:reservationId/car-options',
   OWNER_PANEL_RESERVATION_REVIEW: '/owner-panel/reservations/:reservationId/review',
-  OWNER_PANEL_RESERVATION_ACCEPTED: '/owner-panel/reservations/accepted'
+  OWNER_PANEL_RESERVATION_ACCEPTED: '/owner-panel/reservations/accepted',
+  OWNER_PANEL_RESERVATION_VIEW: '/owner-panel/reservations/:reservationId/view'
 };
 
 export const unAuthOnlyPaths = [PathName.SIGNUP, PathName.CONFIRM_REGISTER, PathName.LOGIN, PathName.FORGOT_PASSWORD];
@@ -83,6 +85,13 @@ const routes = [
     key: 'owner-panel-reservation-accepted',
     isProtected: true,
     roles: UserRoles.Owner
+  },
+  {
+    path: PathName.OWNER_PANEL_RESERVATION_VIEW,
+    element: <ReservationView />,
+    key: 'owner-panel-reservation-view',
+    isProtected: true,
+    roles: UserRoles.Owner
   }
 ];
 
@@ -92,9 +101,11 @@ const AppRouter = () => {
       <Routes>
         {routes.map(({ path, element, key, roles, isProtected }) => {
           const protectedElement = (
-            <ProtectedRoute roles={roles} isProtected={isProtected} path={path}>
-              {element}
-            </ProtectedRoute>
+            <>
+              <ProtectedRoute roles={roles} isProtected={isProtected} path={path}>
+                {element}
+              </ProtectedRoute>
+            </>
           );
 
           return (

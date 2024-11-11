@@ -42,13 +42,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ value, onChange }) {
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon sx={{ color: colors.mainBlack, cursor: 'pointer' }} />
       </SearchIconWrapper>
-      <StyledInputBase placeholder="Search reservation by ID" inputProps={{ 'aria-label': 'search' }} />
+      <StyledInputBase
+        value={value}
+        onChange={onChange}
+        placeholder="Search reservation by ID"
+        inputProps={{ 'aria-label': 'search' }}
+      />
     </Search>
   );
 }

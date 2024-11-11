@@ -101,7 +101,7 @@ function CheckBox({ isChecked }) {
           opacity: isChecked ? 1 : 0
         }}
       >
-        <DoneAllIcon />
+        <DoneAllIcon sx={{ color: colors.mainDarkGreen }} />
       </div>
     </div>
   );

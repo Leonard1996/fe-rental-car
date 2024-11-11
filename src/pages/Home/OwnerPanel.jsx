@@ -196,7 +196,7 @@ export default function OwnerPanel() {
         </Grid>
         <Grid container rowSpacing={1} columnSpacing={1}>
           {reservations.map((reservation) => (
-            <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ padding: '1.25rem' }} key={reservation.id}>
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ padding: '1.25rem' }} key={reservation.reservationId}>
               <CarReservationCard
                 id={reservation.requestedCarId}
                 make={reservation.carMake}

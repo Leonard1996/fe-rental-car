@@ -40,7 +40,7 @@ apiClient.interceptors.response.use(
     if (error?.response?.status === 403 || error?.response?.status === 401) {
       // logout
     } else if (error?.response?.status >= 500) {
-      customError.message = customError;
+      customError.message = customErrorMessage;
     }
 
     throw customError;

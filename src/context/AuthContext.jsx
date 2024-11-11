@@ -3,7 +3,8 @@ import { createContext, useContext, useReducer } from 'react';
 const init = {
   user: JSON.parse(localStorage.getItem('user')),
   accessToken: localStorage.getItem('accessToken'),
-  refreshToken: localStorage.getItem('refreshToken')
+  refreshToken: localStorage.getItem('refreshToken'),
+  isGlobalSearchModalOpen: false
 };
 
 const AuthContext = createContext({ ...init, dispatch: () => {} });

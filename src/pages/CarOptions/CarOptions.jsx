@@ -61,7 +61,8 @@ export default function CarOptions() {
   }, []);
 
   const handleSelect = (id) => {
-    setIsSelected(id);
+    if (id === original.id) return;
+    setIsSelected((prevSelected) => (id === prevSelected ? null : id));
   };
 
   const handleContinue = () => {
