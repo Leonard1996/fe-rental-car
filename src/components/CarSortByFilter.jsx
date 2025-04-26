@@ -34,20 +34,20 @@ const RadioButton = ({ onChange, ...props }) => {
   );
 };
 
-export default function SortBy({ handleFilterChange, selectedFilters, id = 'sortBy' }) {
+export default function CarSortByFilter({ handleFilterChange, selectedFilters, id = 'sortBy' }) {
   return (
     <Grid container sx={{ padding: '1.625rem 1rem' }}>
       <Grid size={{ xs: 12 }} sx={{ marginBottom: '2rem' }}>
         <Grid container>
           <Grid size={{ xs: 11 }}>
-            <StyledTitle sx={{ marginBottom: '.625rem' }}>New requests</StyledTitle>
-            <StyledSubTitle>Latest reserved</StyledSubTitle>
+            <StyledTitle sx={{ marginBottom: '.625rem' }}>Date</StyledTitle>
+            <StyledSubTitle>Latest inserted</StyledSubTitle>
           </Grid>
           <Grid size={{ xs: 1 }}>
             <RadioButton
-              value="latest"
+              value="date"
               onChange={(e) => handleFilterChange(e, id)}
-              checked={selectedFilters[id] === 'latest'}
+              checked={selectedFilters[id] === 'date'}
             />
           </Grid>
         </Grid>
@@ -55,14 +55,14 @@ export default function SortBy({ handleFilterChange, selectedFilters, id = 'sort
       <Grid size={{ xs: 12 }} sx={{ marginBottom: '2rem' }}>
         <Grid container>
           <Grid size={{ xs: 11 }}>
-            <StyledTitle sx={{ marginBottom: '.625rem' }}>Nearest reservations</StyledTitle>
-            <StyledSubTitle>Soonest first</StyledSubTitle>
+            <StyledTitle sx={{ marginBottom: '.625rem' }}>Relevance</StyledTitle>
+            <StyledSubTitle>Most reserved</StyledSubTitle>
           </Grid>
           <Grid size={{ xs: 1 }}>
             <RadioButton
-              value="soonest"
+              value="relevance"
               onChange={(e) => handleFilterChange(e, id)}
-              checked={selectedFilters[id] === 'soonest'}
+              checked={selectedFilters[id] === 'relevance'}
             />
           </Grid>
         </Grid>
@@ -70,14 +70,14 @@ export default function SortBy({ handleFilterChange, selectedFilters, id = 'sort
       <Grid size={{ xs: 12 }}>
         <Grid container>
           <Grid size={{ xs: 11 }}>
-            <StyledTitle sx={{ marginBottom: '.625rem' }}>By time</StyledTitle>
-            <StyledSubTitle>Longest lasting</StyledSubTitle>
+            <StyledTitle sx={{ marginBottom: '.625rem' }}>Name</StyledTitle>
+            <StyledSubTitle>Alphabetical order</StyledSubTitle>
           </Grid>
           <Grid size={{ xs: 1 }}>
             <RadioButton
-              value="longest"
+              value="name"
               onChange={(e) => handleFilterChange(e, id)}
-              checked={selectedFilters[id] === 'longest'}
+              checked={selectedFilters[id] === 'name'}
             />
           </Grid>
         </Grid>

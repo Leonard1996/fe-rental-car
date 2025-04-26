@@ -45,4 +45,22 @@ export class OwnerSerivce {
       return [null, error];
     }
   };
+
+  static getCars = async (data, companyId) => {
+    try {
+      const res = await apiClient.post(`/companies/${companyId}/cars`, data);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
+
+  static getAvailableCarsForCustomReservation = async (companyId, data) => {
+    try {
+      const res = await apiClient.post(`/companies/${companyId}/custom-reservation/avaliable-cars`, data);
+      return [res, null];
+    } catch (error) {
+      return [null, error];
+    }
+  };
 }

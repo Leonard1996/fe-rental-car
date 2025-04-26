@@ -12,6 +12,9 @@ import CarOptions from '../pages/CarOptions/CarOptions';
 import ReservationReview from '../pages/ReservationReview/ReservationReview';
 import ReservationAccepted from '../pages/ReservationReview/ReservationAccepted';
 import ReservationView from '../pages/ReservationReview/ReservationView';
+import MyCars from '../pages/MyCars.jsx/MyCars';
+import CreateReservation from '../pages/CreateReservation/CreateReservation';
+import CustomReservationAvailableCars from '../pages/CustomReservationAvailableCars/CustomReservationAvailableCars';
 
 export const UserRoles = {
   Owner: 'owner',
@@ -29,7 +32,10 @@ export const PathName = {
   OWNER_PANEL_CAR_OPTIONS: '/owner-panel/reservations/:reservationId/car-options',
   OWNER_PANEL_RESERVATION_REVIEW: '/owner-panel/reservations/:reservationId/review',
   OWNER_PANEL_RESERVATION_ACCEPTED: '/owner-panel/reservations/accepted',
-  OWNER_PANEL_RESERVATION_VIEW: '/owner-panel/reservations/:reservationId/view'
+  OWNER_PANEL_RESERVATION_VIEW: '/owner-panel/reservations/:reservationId/view',
+  CARS: '/cars',
+  OWNER_CREATE_RESERVATION: '/owner-panel/create-reservation',
+  CUSTOM_RESERVATION_AVAILABLE_CARS: '/owner-panel/custom-reservation/cars'
 };
 
 export const unAuthOnlyPaths = [PathName.SIGNUP, PathName.CONFIRM_REGISTER, PathName.LOGIN, PathName.FORGOT_PASSWORD];
@@ -90,6 +96,27 @@ const routes = [
     path: PathName.OWNER_PANEL_RESERVATION_VIEW,
     element: <ReservationView />,
     key: 'owner-panel-reservation-view',
+    isProtected: true,
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.CARS,
+    element: <MyCars />,
+    key: 'cars',
+    isProtected: true,
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.OWNER_CREATE_RESERVATION,
+    element: <CreateReservation />,
+    key: 'create-reservation',
+    isProtected: true,
+    roles: UserRoles.Owner
+  },
+  {
+    path: PathName.CUSTOM_RESERVATION_AVAILABLE_CARS,
+    element: <CustomReservationAvailableCars />,
+    key: 'custom-reservation-available-cars',
     isProtected: true,
     roles: UserRoles.Owner
   }

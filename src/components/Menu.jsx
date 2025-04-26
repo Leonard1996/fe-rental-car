@@ -25,8 +25,15 @@ export default function Menu({ isOpen, setIsOpen, anchor }) {
 
   const checkIsActive = (label) => {
     if (label === 'Home' && location.pathname === PathName.OWNER_PANEL && user.role === 'owner') return true;
+    if (label === 'MyCars' && location.pathname === PathName.CARS && user.role === 'owner') return true;
     if (label === 'Home' && location.pathname === PathName.HOME && user.role === 'client') return true;
     if (label === 'My Reservations' && location.pathname === '/owner-panel/reservations' && user.role === 'owner')
+      return true;
+    if (
+      label === 'Create reservation' &&
+      location.pathname === PathName.OWNER_CREATE_RESERVATION &&
+      user.role === 'owner'
+    )
       return true;
     if (label === 'My Reservations' && location.pathname === '/reservations' && user.role === 'client') return true;
     if (label === 'Profile' && location.pathname === '/owner-panel/me' && user.role === 'owner') return true;
@@ -34,22 +41,38 @@ export default function Menu({ isOpen, setIsOpen, anchor }) {
     return false;
   };
 
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+    setIsOpen(false);
+  };
+
   const handleMenuElementClick = (label) => {
+    if (checkIsActive(label)) {
+      setIsOpen(false);
+      return;
+    }
+
     if (label === 'Home') {
-      return navigate('/');
+      handleMenuItemClick('/');
     }
     if (label === 'My Reservations') {
-      return navigate('/reservations');
+      handleMenuItemClick('/reservations');
+    }
+    if (label === 'Create reservation') {
+      handleMenuItemClick('/owner-panel/create-reservation');
+    }
+    if (label === 'My Cars') {
+      handleMenuItemClick('/cars');
     }
     if (label === 'Profile') {
-      return navigate('/me');
+      handleMenuItemClick('/me');
     }
     if (label === 'Login') {
-      return navigate('/login');
+      handleMenuItemClick('/login');
     }
     if (label === 'Logout') {
       dispatch({ type: ActionType.LOGOUT });
-      return navigate('/');
+      handleMenuItemClick('/');
     }
   };
 
@@ -70,15 +93,17 @@ export default function Menu({ isOpen, setIsOpen, anchor }) {
       }}
     >
       <Grid container sx={{ padding: '1.25rem' }}>
-        {['Home', 'My Reservations', 'Profile', user ? 'Logout' : 'Login'].map((label) => (
-          <MenuElement
-            label={label}
-            key={label}
-            callback={() => handleMenuElementClick(label)}
-            showIcon={label !== 'Logout' && label !== 'Login'}
-            isActive={checkIsActive(label)}
-          />
-        ))}
+        {['Home', 'My Reservations', 'Create reservation', 'My Cars', 'Profile', user ? 'Logout' : 'Login'].map(
+          (label) => (
+            <MenuElement
+              label={label}
+              key={label}
+              callback={() => handleMenuElementClick(label)}
+              showIcon={label !== 'Logout' && label !== 'Login'}
+              isActive={checkIsActive(label)}
+            />
+          )
+        )}
       </Grid>
     </StyledDrawer>
   );

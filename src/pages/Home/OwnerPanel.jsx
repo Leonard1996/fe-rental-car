@@ -4,7 +4,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { colors } from '../../themes/base-theme';
 import { useLoading } from '../../context/LoadingContext';
 import LargeButton from '../../components/LargeButton';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { reservationStatus } from '../../common/constants';
 import useCache from '../../hooks/useCacheService';
 import { OwnerSerivce } from '../../services/owner.service';
@@ -80,7 +80,6 @@ export default function OwnerPanel() {
   } = useAuth();
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(location.search);
   const status = queryParams.get('status');

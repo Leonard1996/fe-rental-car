@@ -9,7 +9,6 @@ import { styled, Typography } from '@mui/material';
 import CarOptionCard from '../../components/CarOptionCard';
 import { getDifferenceInDays } from '../../common/helpers';
 import LargeButton from '../../components/LargeButton';
-import { PathName } from '../../router/AppRouter';
 
 const ReservationPrice = styled(Typography)({
   fontWeight: 600,
@@ -44,7 +43,9 @@ export default function CarOptions() {
         alert(err.message);
         return;
       }
-      setOriginal(res.find((d) => d.isOriginal));
+      const originalCar = res.find((d) => d.isOriginal);
+      setOriginal(originalCar);
+      setIsSelected(originalCar.id);
       setOptions(
         res.map((car) => {
           const { fromDate: from, toDate: to } = car;
@@ -61,7 +62,6 @@ export default function CarOptions() {
   }, []);
 
   const handleSelect = (id) => {
-    if (id === original.id) return;
     setIsSelected((prevSelected) => (id === prevSelected ? null : id));
   };
 
@@ -111,7 +111,7 @@ export default function CarOptions() {
                     engine={engine}
                     year={year}
                     price={price}
-                    isSelected={isSelected === id}
+                    isSelected={isSelected == id}
                     seats={seats}
                     isBooked={isBooked}
                   />

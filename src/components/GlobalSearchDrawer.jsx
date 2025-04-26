@@ -1,4 +1,4 @@
-import { Card, CardContent, Grid2 } from '@mui/material';
+import { Box, Card, CardContent, Grid2, styled } from '@mui/material';
 import { colors } from '../themes/base-theme';
 import { StyledSubTitle, StyledTitle } from './CarReservationCard';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
@@ -105,7 +105,9 @@ function MiniReservationCard({
           <Grid2 size={{ xs: 12 }} sx={{ marginBottom: '0.625rem', overflow: 'auto', height: '1.65rem' }}>
             <StyledSubTitle>{(user.id === clientId ? ownerNotes : notes) ?? 'No notes to display'}</StyledSubTitle>
           </Grid2>
-          <Grid2 size={{ xs: 2 }}>ID: {id}</Grid2>
+          <Grid2 size={{ xs: 2 }}>
+            <StyledTag>ID: {id}</StyledTag>
+          </Grid2>
           <Grid2 size={{ xs: 10 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right' }}>
             <StyledSubTitle sx={{ fontWeight: 600, fontSize: '0.875rem' }}>{location}</StyledSubTitle>
           </Grid2>
@@ -114,3 +116,13 @@ function MiniReservationCard({
     </Card>
   );
 }
+
+const StyledTag = styled(Box)({
+  display: 'inline-block',
+  backgroundColor: colors.lightGrey,
+  color: colors.mainDarkGreen,
+  borderRadius: '.375rem',
+  padding: '.375rem .75rem',
+  fontSize: '.875rem',
+  textTransform: 'capitalize'
+});

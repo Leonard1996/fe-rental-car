@@ -17,8 +17,8 @@ export default function ReservationDetails({
   model,
   make,
   days,
-  from,
-  to,
+  fromDate,
+  toDate,
   pricePerDay
 }) {
   return (
@@ -57,7 +57,7 @@ export default function ReservationDetails({
           </Grid>
           <Grid size={{ xs: 10 }}>
             <StyledTitle>Rental starts</StyledTitle>
-            <StyledSubtitle sx={{ marginBottom: '0.5rem' }}>{getReadableLocalTime(+from)}</StyledSubtitle>
+            <StyledSubtitle sx={{ marginBottom: '0.5rem' }}>{getReadableLocalTime(fromDate)}</StyledSubtitle>
             <StyledSubtitle>Pick up at: {isShuttle ? 'Airport' : location.name}</StyledSubtitle>
           </Grid>
         </Grid>
@@ -69,7 +69,7 @@ export default function ReservationDetails({
           </Grid>
           <Grid size={{ xs: 10 }}>
             <StyledTitle>Rental ends</StyledTitle>
-            <StyledSubtitle sx={{ marginBottom: '0.5rem' }}>{getReadableLocalTime(+to)}</StyledSubtitle>
+            <StyledSubtitle sx={{ marginBottom: '0.5rem' }}>{getReadableLocalTime(toDate)}</StyledSubtitle>
             <StyledSubtitle>Drop off at: {location.name}</StyledSubtitle>
           </Grid>
         </Grid>

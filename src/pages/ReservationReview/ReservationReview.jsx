@@ -83,8 +83,8 @@ export default function ReservationReview() {
           engine={engine}
           model={model}
           make={make}
-          fromDate={from}
-          toDate={to}
+          fromDate={+from}
+          toDate={+to}
           driverFirstName={driverFirstName}
           driverLastName={driverLastName}
           driverLicenseNumber={driverLicenseNumber}
